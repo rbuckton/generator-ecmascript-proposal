@@ -30,13 +30,9 @@
     "parse-author": "^2.0.0",
     "yeoman-generator": "^1.0.0"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
   "scripts": {
     "prepublish": "nsp check",
-    "pretest": "eslint . --fix",
-    "test": "jest"
+    "pretest": "eslint . --fix"
   },
   "eslintConfig": {
     "extends": "xo-space",
