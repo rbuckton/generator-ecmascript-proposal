@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Ron Buckton",
+      "authorEmail": "rbuckton@chronicles.org",
+      "authorUrl": "https://github.com/rbuckton"
+    }
+  }
+}
