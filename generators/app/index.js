@@ -1,13 +1,11 @@
 'use strict';
 const Generator = require('yeoman-generator');
-const chalk = require('chalk');
-const yosay = require('yosay');
 const path = require("path");
 const parseAuthor = require('parse-author');
-const _ = require("lodash");
+const { kebabCase, isObject, isString, merge } = require("lodash");
 
 function makeProposalName(name) {
-  name = _.kebabCase(name);
+  name = kebabCase(name);
   name = name.indexOf("proposal-") === 0 ? name : "proposal-" + name;
   return name;
 }
@@ -29,12 +27,12 @@ module.exports = class extends Generator {
       version: this.pkg.version,
       homepage: this.pkg.homepage
     };
-    if (_.isObject(this.pkg.author)) {
+    if (isObject(this.pkg.author)) {
       this.props.authorName = this.pkg.author.name;
       this.props.authorEmail = this.pkg.author.email;
       this.props.authorUrl = this.pkg.author.url;
     }
-    else if (_.isString(this.pkg.author)) {
+    else if (isString(this.pkg.author)) {
       const author = parseAuthor(this.pkg.author);
       this.props.authorName = author.name;
       this.props.authorEmail = author.email;
@@ -81,14 +79,14 @@ module.exports = class extends Generator {
       default: await this.user.github.username(),
       when: !this.props.authorUrl
     }]);
-    this.props = _.merge(this.props, props);
+    this.props = merge(this.props, props);
   }
 
   writing() {
     let pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
-    pkg = _.merge({
-      name: _.kebabCase(this.props.name),
+    pkg = merge({
+      name: kebabCase(this.props.name),
       version: '0.0.0',
       private: true,
       description: this.props.description,
