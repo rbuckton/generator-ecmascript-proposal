@@ -18,6 +18,19 @@ const stages = [
   { name: 'Finished (4)', value: 4 }
 ];
 
+const sections = [
+  { name: 'Motivations', value: 'motivations', checked: true },
+  { name: 'Prior Art', value: 'prior-art', checked: true },
+  { name: 'Syntax', value: 'syntax', checked: true },
+  { name: 'Semantics', value: 'semantics', checked: true },
+  { name: 'Examples', value: 'examples', checked: true },
+  { name: 'API', value: 'api', checked: true },
+  { name: 'Grammar', value: 'grammar', checked: true },
+  { name: 'TODO', value: 'todo', checked: true },
+  { name: 'References', value: 'references', checked: true },
+  { name: 'Prior Discussion', value: 'prior-discussion', checked: true }
+];
+
 module.exports = class extends Generator {
   initializing() {
     this.pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
@@ -39,17 +52,80 @@ module.exports = class extends Generator {
       this.props.authorUrl = author.url;
     }
   }
+
   async prompting() {
-    const props = await this.prompt([{
+    const gitName = await this.user.git.name();
+    const gitEmail = await this.user.git.email();
+    const githubAccount = await this.user.github.username();
+    const answers = await this.prompt([{
+      type: 'input',
       name: 'name',
-      message: 'Proposal name',
+      message: 'Repository name',
       default: this.props.name || makeProposalName(path.basename(process.cwd())),
       filter: makeProposalName,
       validate: name => name.length > "proposal-".length
     }, {
+      type: 'input',
       name: 'description',
       message: 'Description',
       when: !this.props.description,
+    }, {
+      type: 'input',
+      name: 'authorName',
+      message: 'Author\'s Name',
+      default: gitName,
+      when: !this.props.authorName,
+      store: true
+    }, {
+      name: 'authorEmail',
+      message: 'Author\'s Email',
+      default: gitEmail,
+      when: !this.props.authorEmail,
+      store: true
+    }, {
+      name: 'authorGithub',
+      message: 'Author\'s GitHub Account',
+      default: githubAccount,
+      when: !this.props.authorGithub,
+      store: true
+    }, {
+      type: 'confirm',
+      name: 'hasChampion',
+      message: 'Has a champion been identified?',
+      when: !this.props.hasChampion,
+      store: true,
+    }, {
+      type: 'input',
+      name: 'championName',
+      message: 'Champion\'s name',
+      when: ({ hasChampion = this.props.hasChampion }) => !this.props.championName && hasChampion,
+      default: ({ authorName = this.props.authorName }) => authorName,
+      store: true
+    }, {
+      type: 'input',
+      name: 'championGithub',
+      message: 'Champion\'s GitHub account',
+      when: ({ hasChampion = this.props.hasChampion }) => !this.props.championGitHub && hasChampion,
+      default: ({ authorGithub = this.props.authorGithub }) => authorGithub,
+      store: true
+    }, {
+      type: 'input',
+      name: 'githubAccount',
+      message: 'GitHub username or organization for repository',
+      when: !this.props.githubAccount,
+      default: ({ authorGithub = this.props.authorGithub}) => authorGithub || githubAccount,
+    }, {
+      name: 'homepage',
+      message: 'Proposal homepage url',
+      when: !this.props.homepage,
+      default: ({ githubAccount = this.props.githubAccount, name = this.props.name }) => githubAccount ? `https://github.com/${githubAccount}/${name}#readme` : '',
+      store: true
+    }, {
+      name: 'spec',
+      message: 'Specification url',
+      when: !this.props.spec,
+      default: ({ githubAccount = this.props.githubAccount, name = this.props.name }) => githubAccount ? `https://${githubAccount}.github.io/${name}` : '',
+      store: true
     }, {
       type: 'list',
       name: 'stage',
@@ -58,28 +134,14 @@ module.exports = class extends Generator {
       choices: stages,
       store: true
     }, {
-      name: 'homepage',
-      message: 'Proposal homepage url',
-      when: !this.props.homepage
-    }, {
-      name: 'authorName',
-      message: 'Author\'s Name',
-      default: await this.user.git.name(),
-      when: !this.props.authorName,
+      type: 'checkbox',
+      name: 'sections',
+      message: 'Proposal sections',
+      choices: sections,
+      filter: result => new Set(result),
       store: true
-    }, {
-      name: 'authorEmail',
-      message: 'Author\'s Email',
-      default: await this.user.git.email(),
-      when: !this.props.authorEmail,
-      store: true
-    }, {
-      name: 'githubAccount',
-      message: 'GitHub username or organization',
-      default: await this.user.github.username(),
-      when: !this.props.authorUrl
     }]);
-    this.props = merge(this.props, props);
+    this.props = merge(this.props, answers);
   }
 
   writing() {
@@ -128,40 +190,28 @@ module.exports = class extends Generator {
       this.destinationPath('gulpfile.js')
     );
 
-    const {
-      authorName,
-      githubAccount,
-      stage,
-      name,
-      description = name,
-      homepage = githubAccount ? `https://github.com/${githubAccount}/${name}#readme` : 'about:blank'
-    } = this.props;
-
-    const title = description || name;
-    const url = homepage || (githubAccount ? `https://github.com/${githubAccount}/${name}#readme` : 'about:blank');
-
     this.fs.copyTpl(
       this.templatePath('LICENSE'),
       this.destinationPath('LICENSE'),
-      { authorName }
+      this.props
     );
 
     this.fs.copyTpl(
       this.templatePath('src/index.html'),
       this.destinationPath('src/index.html'),
-      { title, authorName, stage }
+      this.props
     );
 
     this.fs.copyTpl(
       this.templatePath('src/sec-introduction.html'),
       this.destinationPath('src/sec-introduction.html'),
-      { url }
+      this.props
     );
 
     this.fs.copyTpl(
       this.templatePath('README.md'),
       this.destinationPath('README.md'),
-      { title, stage }
+      this.props
     )
   }
 
@@ -173,12 +223,12 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall();
+    // this.npmInstall();
   }
 
   end() {
-    this.spawnCommandSync('npm', ['run', 'compile'], {
-      cwd: this.destinationPath()
-    });
+    // this.spawnCommandSync('npm', ['run', 'compile'], {
+    //   cwd: this.destinationPath()
+    // });
   }
 };

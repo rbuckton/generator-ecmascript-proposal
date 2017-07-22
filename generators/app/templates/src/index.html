@@ -5,10 +5,10 @@
 <link rel="spec" href="es2015" />
 <script src="ecmarkup.js"></script>
 <pre class="metadata">
-    title: <%= title %>
-    stage: <%= stage %>
+    title: <%=description || name%>
+    stage: <%=stage%>
     grammar: strict
-    contributors: <%= authorName %>, Ecma International
+    contributors: <%=authorName + (championName && championName !== authorName ? ", " + championName : "")%>, Ecma International
 </pre>
 
 <emu-intro id="sec-intro">
