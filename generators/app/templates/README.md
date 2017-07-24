@@ -30,7 +30,7 @@ will be updated automatically when you publish.
 ## Status
 
 **Stage:** <%=stage%>  
-**Champion:** <%=hasChampion ? championName + (championGithub ? " @(" + championGithub + ")" : "") : "_None identified_"%>
+**Champion:** <%=hasChampion ? championName + (championGithub ? " (@" + championGithub + ")" : "") : "_None identified_"%>
 
 _For more information see the [TC39 proposal process](https://tc39.github.io/process-document/)._
 
