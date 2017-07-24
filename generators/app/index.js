@@ -223,12 +223,12 @@ module.exports = class extends Generator {
   }
 
   install() {
-    // this.npmInstall();
+    this.npmInstall();
   }
 
   end() {
-    // this.spawnCommandSync('npm', ['run', 'compile'], {
-    //   cwd: this.destinationPath()
-    // });
+    this.spawnCommandSync('npm', ['run', 'compile'], {
+      cwd: this.destinationPath()
+    });
   }
 };
