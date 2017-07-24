@@ -93,28 +93,28 @@ The following is a high-level list of tasks to progress through each stage of th
 
 ### Stage 1 Entrance Criteria
 
-[ ] Identified a "[champion][Champion]" who will advance the addition.  
-[ ] [Prose][Prose] outlining the problem or need and the general shape of a solution.  
-[ ] Illustrative [examples][Examples] of usage.  
-[ ] High-level [API][API].  
+* [ ] Identified a "[champion][Champion]" who will advance the addition.  
+* [ ] [Prose][Prose] outlining the problem or need and the general shape of a solution.  
+* [ ] Illustrative [examples][Examples] of usage.  
+* [ ] High-level [API][API].  
 
 ### Stage 2 Entrance Criteria
 
-[ ] [Initial specification text][Specification].  
-[ ] [Transpiler support][Transpiler] (_Optional_).  
+* [ ] [Initial specification text][Specification].  
+* [ ] [Transpiler support][Transpiler] (_Optional_).  
 
 ### Stage 3 Entrance Criteria
 
-[ ] [Complete specification text][Specification].  
-[ ] Designated reviewers have [signed off][Stage3ReviewerSignOff] on the current spec text.  
-[ ] The ECMAScript editor has [signed off][Stage3EditorSignOff] on the current spec text.  
+* [ ] [Complete specification text][Specification].  
+* [ ] Designated reviewers have [signed off][Stage3ReviewerSignOff] on the current spec text.  
+* [ ] The ECMAScript editor has [signed off][Stage3EditorSignOff] on the current spec text.  
 
 ### Stage 4 Entrance Criteria
 
-[ ] [Test262](https://github.com/tc39/test262) acceptance tests have been written for mainline usage scenarios and [merged][Test262PullRequest].  
-[ ] Two compatible implementations which pass the acceptance tests: [\[1\]][Implementation1], [\[2\]][Implementation2].  
-[ ] A [pull request][Ecma262PullRequest] has been sent to tc39/ecma262 with the integrated spec text.  
-[ ] The ECMAScript editor has signed off on the [pull request][Ecma262PullRequest].  
+* [ ] [Test262](https://github.com/tc39/test262) acceptance tests have been written for mainline usage scenarios and [merged][Test262PullRequest].  
+* [ ] Two compatible implementations which pass the acceptance tests: [\[1\]][Implementation1], [\[2\]][Implementation2].  
+* [ ] A [pull request][Ecma262PullRequest] has been sent to tc39/ecma262 with the integrated spec text.  
+* [ ] The ECMAScript editor has signed off on the [pull request][Ecma262PullRequest].  
 
 <%-sections.has("todo") ? "" : "-->"%>
 
