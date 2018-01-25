@@ -8,7 +8,7 @@
     title: <%=description || name%>
     stage: <%=stage%>
     grammar: strict
-    contributors: <%=authorName + (championName && championName !== authorName ? ", " + championName : "")%>, Ecma International
+    contributors: <%=authorName + (hasChampion && championName && championName !== authorName ? ", " + championName : "")%>, Ecma International
 </pre>
 
 <emu-intro id="sec-intro">
