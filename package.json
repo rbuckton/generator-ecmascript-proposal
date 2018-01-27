@@ -1,6 +1,6 @@
 {
   "name": "generator-ecmascript-proposal",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Generates an ECMAScript proposal repository",
   "homepage": "https://github.com/rbuckton/generator-ecmascript-proposal",
   "author": {
@@ -18,11 +18,17 @@
     "yeoman-generator"
   ],
   "devDependencies": {
-    "@types/lodash": "^4.14.96",
+    "@types/lodash": "^4.14.97",
+    "@types/node": "^9.4.0",
     "@types/yeoman-generator": "^2.0.1",
+    "del": "^3.0.0",
     "eslint": "^4.1.0",
     "eslint-config-xo-space": "^0.16.0",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-tsb": "^2.0.5",
     "nsp": "^2.6.3",
+    "typescript": "^2.6.2",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
   },
@@ -33,7 +39,7 @@
     "yeoman-generator": "^1.0.0"
   },
   "scripts": {
-    "prepublishOnly": "nsp check",
+    "prepublishOnly": "gulp build & nsp check",
     "pretest": "eslint . --fix"
   },
   "eslintConfig": {

@@ -7,12 +7,12 @@ const spawn = require("child_process").spawn;
 gulp.task("clean", () => del("docs/**/*"));
 
 gulp.task("build", () => gulp
-    .src(["src/index.html"])
-    .pipe(emu({ js: "ecmarkup.js", css: "ecmarkup.css", assets: "none" }))
+    .src(["spec/index.html"])
+    .pipe(emu())
     .pipe(gulp.dest("docs")));
 
 gulp.task("watch", () => gulp
-    .watch(["src/**/*"], ["build"]));
+    .watch(["spec/**/*"], ["build"]));
 
 gulp.task("start", ["watch"], () => {
     const server = gls.static("docs", 8080);

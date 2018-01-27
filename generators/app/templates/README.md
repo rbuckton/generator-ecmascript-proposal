@@ -1,94 +1,197 @@
-<!--
-Welcome to your new proposal repository. This document will serve as the introduction and 
- strawman for your proposal.
+<!--#region:welcome-->
+# Note to Author
 
-The repository is broken down into the following layout:
+> TODO: Remove this section before publishing.
 
-  /README.md        # intro/strawman (this file)
-  /LICENSE          # ECMA compatible license (BSD-3 Clause)
-  /src              # ecmarkup sources for the specification
-  /docs             # ecmarkup output
+Welcome to your new proposal repository. This document will serve as the introduction and explainer
+for your proposal.
+
+## Before creating a proposal
+
+Please ensure the following:
+
+  1. You are a member of TC39.
+  1. You have read the [process document][Process].
+  1. You have reviewed the [existing proposals][Proposals].
+
+## Create your proposal repo
+
+Follow these steps:
+
+<% if (build === "gulp") { %>
+  1. Go to your repo settings "Options" page, under "GitHub Pages", and set "Source" to 
+    **master branch /docs folder** and click "Save".
+    1. Ensure "Issues" is checked.
+    1. Also, you probably want to disable "Wiki" and "Projects"
+<% } else { %>
+  1. Go to your repo settings "Options" page, under "GitHub Pages", and set "Source" to 
+    **master branch** and click "Save".
+    1. Ensure "Issues" is checked.
+    1. Also, you probably want to disable "Wiki" and "Projects"
+  1. Avoid merge conflicts with build process output files by running:
+      ```sh
+      git config --local --add merge.output.driver true
+      ```
+<% } %>
+
+## Repository organization
+
+The repository contains the following files/directories:
+
+<% if (build === "gulp") { -%>
+| Path              | Purpose                                 |
+|:------------------|:----------------------------------------|
+| /LICENSE          | ECMA compatible license (BSD-3 Clause)  |
+| /README.md        | explainer (this file)                   |
+| /gulpfile.js      | gulp build file                         |
+| /spec             | ecmarkup sources for the specification  |
+| /docs             | ecmarkup outputs                        |
+<% } else { -%>
+| Path              | Purpose                                 |
+|:------------------|:----------------------------------------|
+| /LICENSE          | ECMA compatible license (BSD-3 Clause)  |
+| /README.md        | explainer (this file)                   |
+| /spec.emu         | ecmarkup source for the specification   |
+| /index.html       | ecmarkup output for the specification   |
+<% } -%>
+
+## Maintain your proposal repo
+
+<% if (build === "gulp") { -%>
+  1. Remove this "Note to Author" section from README.md.
+  1. Make your changes to `spec/index.html`.
 
 To build the specification, run:
 
-  npm run compile
+```sh
+gulp build
+```
 
 To preview the specification, run:
 
-  npm run start
+```sh
+gulp start
+```
+<% } else { -%>
+  1. Remove this "Note to Author" section from README.md.
+  1. Make your changes to `spec.md`.
+  1. Any commit that makes meaningful changes to the spec should run `npm run build` and commit the 
+    resulting output.
+  1. Whenever you update `ecmarkup`, run `npm run build` and commit any changes that come from that 
+    dependency.
+<% } -%>
+<!--#endregion:welcome-->
 
-It is recommended that you configure GitHub Pages in your GitHub repository to point to the
-'/docs' directory after you push these changes to 'master'. That way the specification text
-will be updated automatically when you publish.
+<!--#region:intro-->
+# <%= description || name %>
 
--->
+> TODO: Replace this with a summary or introduction for your proposal.
+<!--#endregion:intro-->
 
-# <%=description||name%>
-
-<!-- Replace this with a summary or introduction for your proposal -->
-
+<!--#region:status-->
 ## Status
 
-**Stage:** <%=stage%>  
-**Champion:** <%=hasChampion ? championName + (championGithub ? " (@" + championGithub + ")" : "") : "_None identified_"%>
+**Stage:** <%= stage %>  
+**Champion:** <%= hasChampion ? championName + (championGithub ? " (@" + championGithub + ")" : "") : "_None identified_" %>  
 
-_For more information see the [TC39 proposal process](https://tc39.github.io/process-document/)._
+_For detailed status of this proposal see [TODO](#todo), below._  
+<!--#endregion:status-->
 
+<!--#region:authors-->
 ## Authors
 
-* <%=authorName%><%=authorGithub ? " (@" + authorGithub + ")" : ""%>
+* <%= authorName %><%= authorGithub ? " (@" + authorGithub + ")" : "" %>  
+<!--#endregion:authors-->
 
-<%-sections.has("motivations") ? "# Motivations" : "<!-- # Motivations -->"%>
+<!--#region:motivations-->
+# Motivations
 
-<!-- Motivations and use cases for the proposal --->
+> TODO: Replace this with motivations and use cases for the proposal.
+<!--#endregion:motivations-->
 
-<%-sections.has("prior-art") ? "# Prior Art" : "<!-- # Prior Art -->"%>
+<!--#region:prior-art-->
+<%- sections.has("prior-art") ? "" : "<!--\n" -%>
+# Prior Art 
 
-<!-- Links to similar concepts in existing languages, prior proposals, etc. -->
+> TODO: Add links to similar concepts in existing languages, prior proposals, etc.
 
-<%-sections.has("prior-art") ? "" : "<!--"%>
 * Language: [Concept](url)  
-<%-sections.has("prior-art") ? "" : "-->"%>
+<%- sections.has("prior-art") ? "" : "-->\n" -%>
+<!--#endregion:prior-art-->
 
-<%-sections.has("syntax") ? "# Syntax" : "<!-- # Syntax -->"%>
+<!--#region:syntax-->
+<%- sections.has("syntax") ? "" : "<!--\n" -%>
+# Syntax
 
-<!-- Examples of syntax -->
+> TODO: Provide examples of syntax.
 
-<%-sections.has("syntax") ? "" : "<!--"%>
 ```js
 ```
-<%-sections.has("syntax") ? "" : "-->"%>
+<%- sections.has("syntax") ? "" : "-->\n" -%>
+<!--#endregion:syntax-->
 
-<%-sections.has("semantics") ? "# Semantics" : "<!-- # Semantics -->"%>
+<!--#region:semantics-->
+<%- sections.has("semantics") ? "" : "<!--\n" -%>
+# Semantics
 
-<!-- Static and runtime semantics of the proposal -->
+> TODO: Describe static and runtime semantics of the proposal.
+<%- sections.has("semantics") ? "" : "-->\n" -%>
+<!--#endregion:semantics-->
 
-<%-sections.has("examples") ? "# Examples" : "<!-- # Examples -->"%>
+<!--#region:examples-->
+<%- sections.has("examples") ? "" : "<!--\n" -%>
+# Examples
 
-<!-- Examples of the proposal -->
+> TODO: Provide examples of the proposal.
 
-<%-sections.has("examples") ? "" : "<!--"%>
 ```js
 ```
-<%-sections.has("examples") ? "" : "-->"%>
+<%- sections.has("examples") ? "" : "-->\n" -%>
+<!--#endregion:examples-->
 
-<%-sections.has("api") ? "# API" : "<!-- # API -->"%>
+<!--#region:api-->
+<%- sections.has("api") ? "" : "<!--\n" -%>
+# API
 
-<!-- Description of High-level API -->
+> TODO: Provide description of High-level API.
+<%- sections.has("api") ? "" : "-->\n" -%>
+<!--#endregion:api-->
 
-<%-sections.has("grammar") ? "# Grammar" : "<!-- # Grammar -->"%>
+<!--#region:grammar-->
+<%- sections.has("grammar") ? "" : "<!--\n" -%>
+# Grammar
 
-<!-- Grammar for the proposal. Please use grammarkdown (github.com/rbuckton/grammarkdown#readme) 
-     syntax in fenced code blocks as grammarkdown is the grammar format used by ecmarkup. -->
+> TODO: Provide the grammar for the proposal. Please use [grammarkdown][Grammarkdown] syntax in 
+> fenced code blocks as grammarkdown is the grammar format used by ecmarkup.
 
-<%-sections.has("grammar") ? "" : "<!--"%>
 ```grammarkdown
 ```
-<%-sections.has("grammar") ? "" : "-->"%>
+<%- sections.has("grammar") ? "" : "-->\n" -%>
+<!--#endregion:grammar-->
 
-<%-sections.has("todo") ? "# TODO" : "<!-- # TODO -->"%>
+<!--#region:references-->
+<%- sections.has("references") ? "" : "<!--\n" -%>
+# References
 
-<%-sections.has("todo") ? "" : "<!--"%>
+> TODO: Provide links to other specifications, etc.
+
+* [Title](url)  
+<%- sections.has("references") ? "" : "-->\n" -%>
+<!--#endregion:references-->
+
+<!--#region:prior-discussion-->
+<%- sections.has("prior-discussion") ? "" : "<!--\n" -%>
+# Prior Discussion
+
+> TODO: Provide links to prior discussion topics on https://esdiscuss.org.
+
+* [Subject](https://esdiscuss.org)  
+<%- sections.has("prior-discussion") ? "" : "-->\n" -%>
+<!--#endregion:prior-discussion-->
+
+<!--#region:todo-->
+# TODO
+
 The following is a high-level list of tasks to progress through each stage of the [TC39 proposal process](https://tc39.github.io/process-document/):
 
 ### Stage 1 Entrance Criteria
@@ -115,36 +218,25 @@ The following is a high-level list of tasks to progress through each stage of th
 * [ ] Two compatible implementations which pass the acceptance tests: [\[1\]][Implementation1], [\[2\]][Implementation2].  
 * [ ] A [pull request][Ecma262PullRequest] has been sent to tc39/ecma262 with the integrated spec text.  
 * [ ] The ECMAScript editor has signed off on the [pull request][Ecma262PullRequest].  
+<!--#endregion:todo-->
 
-<%-sections.has("todo") ? "" : "-->"%>
-
-<%-sections.has("references") ? "# References" : "<!-- # References -->"%>
-
-<!-- Links to other specifications, etc. -->
-
-<%-sections.has("references") ? "" : "<!--"%>
-* [Title](url)
-<%-sections.has("references") ? "" : "-->"%>
-
-<%-sections.has("prior-discussion") ? "# Prior Discussion" : "<!-- # Prior Discussion -->"%>
-
-<!-- Links to prior discussion topics on https://esdiscuss.org -->
-
-<%-sections.has("prior-discussion") ? "" : "<!--"%>
-* [Subject](https://esdiscuss.org)
-<%-sections.has("prior-discussion") ? "" : "-->"%>
-
-<!-- The following are shared links used throughout the README: -->
-
+<!--#region:links-->
+<!-- The following links are used throughout the README: -->
+[Process]: https://tc39.github.io/process-document/
+[Proposals]: https://github.com/tc39/proposals/
+[Grammarkdown]: http://github.com/rbuckton/grammarkdown#readme
 [Champion]: #status
 [Prose]: #motivations
 [Examples]: #examples
 [API]: #api
 [Specification]: <%=spec%>
-[Transpiler]: #todo
-[Stage3ReviewerSignOff]: #todo
-[Stage3EditorSignOff]: #todo
-[Test262PullRequest]: #todo
-[Implementation1]: #todo
-[Implementation2]: #todo
-[Ecma262PullRequest]: #todo
+
+<!-- The following links should be supplied as the proposal advances: -->
+[Transpiler]: #todo <!-- TODO: provide link to github PR -->
+[Stage3ReviewerSignOff]: #todo <!-- TODO: provide link to github issue -->
+[Stage3EditorSignOff]: #todo <!-- TODO: provide link to github issue -->
+[Test262PullRequest]: #todo <!-- TODO: provide link to github PR -->
+[Implementation1]: #todo <!-- TODO: provide link to github issue -->
+[Implementation2]: #todo <!-- TODO: provide link to github issue -->
+[Ecma262PullRequest]: #todo <!-- TODO: provide link to github PR -->
+<!--#endregion:links-->

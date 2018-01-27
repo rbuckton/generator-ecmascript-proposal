@@ -1,0 +1,4 @@
+gulpfile.js
+tsconfig.json
+*.ts
+*.js.map
