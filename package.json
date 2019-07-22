@@ -13,8 +13,6 @@
   ],
   "main": "generators/index.js",
   "keywords": [
-    "ecmascript",
-    "proposal",
     "yeoman-generator"
   ],
   "devDependencies": {
