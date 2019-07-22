@@ -1,4 +1,5 @@
+.vscode
+scripts
 gulpfile.js
 tsconfig.json
 *.ts
-*.js.map

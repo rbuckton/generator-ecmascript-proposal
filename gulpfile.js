@@ -1,17 +1,9 @@
 const gulp = require("gulp");
-const tsb = require("gulp-tsb");
-const sourcemaps = require("gulp-sourcemaps");
-const del = require("del");
+const { exec } = require("./scripts/exec");
 
-const project = tsb.create("tsconfig.json");
+const build = () => exec(process.execPath, [require.resolve("typescript/lib/tsc.js"), "-b", "tsconfig.json"]);
+const clean = () => exec(process.execPath, [require.resolve("typescript/lib/tsc.js"), "-b", "--clean", "tsconfig.json"]);
 
-// gulp.task("clean", () => del("docs/**/*"));
-
-gulp.task("build", () => gulp
-    .src(["generators/app/**/*.ts"])
-    .pipe(sourcemaps.init())
-    .pipe(project())
-    .pipe(sourcemaps.write(".", { includeContent: false }))
-    .pipe(gulp.dest("generators/app")));
-
-gulp.task("default", ["build"]);
+gulp.task("clean", clean);
+gulp.task("build", build);
+gulp.task("default", build);

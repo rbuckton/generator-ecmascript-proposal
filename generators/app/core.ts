@@ -1,5 +1,4 @@
 import { kebabCase } from "lodash";
-import { Answers, ChoiceType } from "inquirer";
 
 export function makeProposalName(name: string) {
     name = kebabCase(name);

@@ -1,10 +1,9 @@
 "use strict";
 import Generator = require("yeoman-generator");
 import parseAuthor = require("parse-author");
-import * as path from "path";
+import { isObject, isString, kebabCase, merge, pick } from "lodash";
+import { ProposalProps } from "./core";
 import * as questions from "./questions";
-import { kebabCase, isObject, isString, merge, pick } from "lodash";
-import { makeProposalName, ProposalProps } from "./core";
 
 class ProposalGenerator extends Generator {
     public props: ProposalProps;
@@ -83,13 +82,13 @@ class ProposalGenerator extends Generator {
                 },
             license: "SEE LICENSE IN https://tc39.github.io/ecma262/#sec-copyright-and-software-license",
             devDependencies: this.props.build === "gulp" ? {
-                    "ecmarkup": "^3.12",
-                    "del": "^2.2.2",
-                    "gulp": "^3.9.1",
-                    "gulp-emu": "^1.1.0",
-                    "gulp-live-server": "0.0.30"
+                    "ecmarkup": "^3.16.0",
+                    "del": "^5.0.0",
+                    "gulp": "^4.0.2",
+                    "gulp-emu": "^1.2.0",
+                    "gulp-live-server": "^0.0.31"
                 } : {
-                    "ecmarkup": "^3.11.2"
+                    "ecmarkup": "^3.16.0"
                 }
         }, this.pkg);
         this.fs.writeJSON(this.destinationPath("package.json"), this.pkg);

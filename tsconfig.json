@@ -2,7 +2,9 @@
     "compilerOptions": {
         "target": "es2017",
         "module": "commonjs",
+        "types": ["node"],
         "sourceMap": true,
-        "types": ["node"]
-    }
+        "inlineSources": true
+    },
+    "include": ["generators/app/**/*.ts"]
 }
