@@ -1,6 +1,6 @@
 {
   "name": "generator-ecmascript-proposal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates an ECMAScript proposal repository",
   "homepage": "https://github.com/rbuckton/generator-ecmascript-proposal",
   "author": {
